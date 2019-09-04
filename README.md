@@ -10,7 +10,10 @@ require 'prometheus/client'
 require 'prometheus_client_addons'
 
 prometheus = Prometheus::Client.registry
-puma = PrometheusClientAddons::Prometheus::Client::Puma.new(prefix: 'puma', base_labels: { my_label: 'baz' })
+puma = PrometheusClientAddons::Prometheus::Client::Puma.new(
+  prefix: 'puma', 
+  base_labels: { my_label: 'baz' }
+)
 prometheus.register(puma)
 ```
 
@@ -90,7 +93,10 @@ require 'prometheus/client'
 require 'prometheus_client_addons'
 
 prometheus = Prometheus::Client.registry
-pool = PrometheusClientAddons::Prometheus::Client::ActiveRecord.new(prefix: 'activerecord', base_labels: { my_label: 'foo' })
+pool = PrometheusClientAddons::Prometheus::Client::ActiveRecord.new(
+  prefix: 'activerecord', 
+  base_labels: { my_label: 'foo' }
+)
 prometheus.register(pool)
 ```
 
