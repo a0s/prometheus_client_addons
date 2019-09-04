@@ -82,7 +82,7 @@ puma_worker_status_last_status_max_threads{my_label="baz",worker_index="1"} 5
 
 ### ActiveRecord::ConnectionPool stats
 
-*Not it's not working with pre-forked/clustered-mode web servers. Sorry.*
+*Now it's not working with pre-forked/clustered-mode web servers. Sorry.*
 
 config/initializers/prometheus.rb
 ```ruby
