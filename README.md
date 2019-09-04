@@ -1,6 +1,6 @@
 # Prometheus Ruby Client Addons
 
-## Usage
+## Usage (with Rails)
 
 ### Puma stats
 
