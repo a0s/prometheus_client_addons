@@ -119,6 +119,33 @@ activerecord_waiting{my_label="foo"} 0
 activerecord_checkout_timeout{my_label="foo"} 5
 ```
 
+### CustomCollector
+
+config/initializers/prometheus.rb
+```ruby
+require 'prometheus/client'
+require 'prometheus_client_addons'
+
+prometheus = Prometheus::Client.registry
+custom_collector = PrometheusClientAddons::Prometheus::Client::CustomCollector.new(
+  name: 'custom_metric',
+  docstring: 'This is a custom metric',
+  base_labels: { my_label: 'foo' },
+  &Proc.new {
+    # return custom value from block
+    Time.now.to_i
+  }
+)
+prometheus.register(custom_collector)
+```
+
+Example response
+```
+# TYPE custom_metric gauge
+# HELP custom_metric This is a custom metric
+custom_metric{my_label="foo"} 1567612321
+```
+
 ## Installation
 
 ```ruby
