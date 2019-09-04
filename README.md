@@ -125,6 +125,100 @@ activerecord_waiting{my_label="foo"} 0
 activerecord_checkout_timeout{my_label="foo"} 5
 ```
 
+### GC.stat
+
+config/initializers/prometheus.rb
+```ruby
+require 'prometheus/client'
+require 'prometheus_client_addons'
+
+prometheus = Prometheus::Client.registry
+gc = PrometheusClientAddons::Prometheus::Client::GC.new(
+  prefix: 'gc',
+  base_labels: { my_label: 'foo' }
+)
+prometheus.register(gc)
+```
+
+Example response
+```
+# TYPE gc_count gauge
+# HELP gc_count count
+gc_count{my_label="foo"} 62
+# TYPE gc_heap_allocated_pages gauge
+# HELP gc_heap_allocated_pages heap_allocated_pages
+gc_heap_allocated_pages{my_label="foo"} 3593
+# TYPE gc_heap_sorted_length gauge
+# HELP gc_heap_sorted_length heap_sorted_length
+gc_heap_sorted_length{my_label="foo"} 3593
+# TYPE gc_heap_allocatable_pages gauge
+# HELP gc_heap_allocatable_pages heap_allocatable_pages
+gc_heap_allocatable_pages{my_label="foo"} 0
+# TYPE gc_heap_available_slots gauge
+# HELP gc_heap_available_slots heap_available_slots
+gc_heap_available_slots{my_label="foo"} 1464501
+# TYPE gc_heap_live_slots gauge
+# HELP gc_heap_live_slots heap_live_slots
+gc_heap_live_slots{my_label="foo"} 1464445
+# TYPE gc_heap_free_slots gauge
+# HELP gc_heap_free_slots heap_free_slots
+gc_heap_free_slots{my_label="foo"} 56
+# TYPE gc_heap_final_slots gauge
+# HELP gc_heap_final_slots heap_final_slots
+gc_heap_final_slots{my_label="foo"} 0
+# TYPE gc_heap_marked_slots gauge
+# HELP gc_heap_marked_slots heap_marked_slots
+gc_heap_marked_slots{my_label="foo"} 999525
+# TYPE gc_heap_eden_pages gauge
+# HELP gc_heap_eden_pages heap_eden_pages
+gc_heap_eden_pages{my_label="foo"} 3593
+# TYPE gc_heap_tomb_pages gauge
+# HELP gc_heap_tomb_pages heap_tomb_pages
+gc_heap_tomb_pages{my_label="foo"} 0
+# TYPE gc_total_allocated_pages gauge
+# HELP gc_total_allocated_pages total_allocated_pages
+gc_total_allocated_pages{my_label="foo"} 3593
+# TYPE gc_total_freed_pages gauge
+# HELP gc_total_freed_pages total_freed_pages
+gc_total_freed_pages{my_label="foo"} 0
+# TYPE gc_total_allocated_objects gauge
+# HELP gc_total_allocated_objects total_allocated_objects
+gc_total_allocated_objects{my_label="foo"} 4665284
+# TYPE gc_total_freed_objects gauge
+# HELP gc_total_freed_objects total_freed_objects
+gc_total_freed_objects{my_label="foo"} 3200839
+# TYPE gc_malloc_increase_bytes gauge
+# HELP gc_malloc_increase_bytes malloc_increase_bytes
+gc_malloc_increase_bytes{my_label="foo"} 16693664
+# TYPE gc_malloc_increase_bytes_limit gauge
+# HELP gc_malloc_increase_bytes_limit malloc_increase_bytes_limit
+gc_malloc_increase_bytes_limit{my_label="foo"} 30330547
+# TYPE gc_minor_gc_count gauge
+# HELP gc_minor_gc_count minor_gc_count
+gc_minor_gc_count{my_label="foo"} 48
+# TYPE gc_major_gc_count gauge
+# HELP gc_major_gc_count major_gc_count
+gc_major_gc_count{my_label="foo"} 14
+# TYPE gc_remembered_wb_unprotected_objects gauge
+# HELP gc_remembered_wb_unprotected_objects remembered_wb_unprotected_objects
+gc_remembered_wb_unprotected_objects{my_label="foo"} 4357
+# TYPE gc_remembered_wb_unprotected_objects_limit gauge
+# HELP gc_remembered_wb_unprotected_objects_limit remembered_wb_unprotected_objects_limit
+gc_remembered_wb_unprotected_objects_limit{my_label="foo"} 8690
+# TYPE gc_old_objects gauge
+# HELP gc_old_objects old_objects
+gc_old_objects{my_label="foo"} 992074
+# TYPE gc_old_objects_limit gauge
+# HELP gc_old_objects_limit old_objects_limit
+gc_old_objects_limit{my_label="foo"} 1743172
+# TYPE gc_oldmalloc_increase_bytes gauge
+# HELP gc_oldmalloc_increase_bytes oldmalloc_increase_bytes
+gc_oldmalloc_increase_bytes{my_label="foo"} 37700816
+# TYPE gc_oldmalloc_increase_bytes_limit gauge
+# HELP gc_oldmalloc_increase_bytes_limit oldmalloc_increase_bytes_limit
+gc_oldmalloc_increase_bytes_limit{my_label="foo"} 33438324
+```
+
 ### CustomCollector
 
 config/initializers/prometheus.rb
