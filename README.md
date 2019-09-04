@@ -2,7 +2,7 @@
 
 ## Usage (with Rails)
 
-### Puma stats
+### Puma server
 
 config/initializers/prometheus.rb
 ```ruby
@@ -80,7 +80,7 @@ puma_worker_status_last_status_max_threads{my_label="baz",worker_index="0"} 5
 puma_worker_status_last_status_max_threads{my_label="baz",worker_index="1"} 5
 ```
 
-### ActiveRecord::ConnectionPool stats
+### ActiveRecord::Base.connection_pool.stat
 
 *Now it's not working with pre-forked/clustered-mode web servers. Sorry.*
 
