@@ -1,4 +1,5 @@
 require 'puma/plugin'
+require 'prometheus_client_addons/prometheus/client/puma'
 
 module PrometheusClientAddons
   module Puma
